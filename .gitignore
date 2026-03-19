@@ -1,4 +1,6 @@
 # Backend
+backend/src/main/resources/application-local.yml
+client_secret*.json
 backend/target/
 backend/.mvn/wrapper/maven-wrapper.jar
 *.class

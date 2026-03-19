@@ -14,4 +14,5 @@ spring:
               - profile
 
 app:
-  frontend-url: http://localhost:3003
+  frontend-url: ${APP_FRONTEND_URL}
+

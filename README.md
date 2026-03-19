@@ -55,15 +55,45 @@ Google-auth-demo/
 
 ## Step 2 — Run the Backend
 
+The backend uses Spring Boot profiles to manage environment-specific config.
+
+### Local profile (`application-local.yml`)
+
+Contains hardcoded local credentials — **do not commit this file**.
+
+Create `backend/src/main/resources/application-local.yml`:
+
+```yaml
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: your-client-id-here
+            client-secret: your-client-secret-here
+
+app:
+  frontend-url: http://localhost:3003
+```
+
+Then run with the `local` profile:
+
 ```bash
 cd backend
+mvn spring-boot:run -Dspring-boot.run.profiles=local
+```
 
-# Set your Google credentials
-export GOOGLE_CLIENT_ID=your-client-id-here
-export GOOGLE_CLIENT_SECRET=your-client-secret-here
+### Production / other environments
 
-# Start Spring Boot
-./mvnw spring-boot:run
+Set environment variables instead of using a profile file:
+
+```bash
+export GOOGLE_CLIENT_ID=your-client-id
+export GOOGLE_CLIENT_SECRET=your-client-secret
+export APP_FRONTEND_URL=https://yourdomain.com
+
+mvn spring-boot:run
 ```
 
 Backend runs on **http://localhost:8084**
@@ -72,12 +102,31 @@ Backend runs on **http://localhost:8084**
 
 ## Step 3 — Run the Frontend
 
+The frontend uses `.env` files to manage environment-specific config.
+
+### Local profile (`.env.local`)
+
+Contains hardcoded local values — **do not commit this file**.
+
+Create `frontend/.env.local`:
+
+```
+REACT_APP_BACKEND_URL=http://localhost:8084
+```
+
+Then run:
+
 ```bash
 cd frontend
-
 npm install
 npm start
 ```
+
+`.env.local` takes precedence over `.env` automatically when present.
+
+### Production / other environments
+
+Set `REACT_APP_BACKEND_URL` as an environment variable in your CI/CD or hosting platform (e.g. Vercel, Netlify) — no file changes needed.
 
 Frontend runs on **http://localhost:3003** and proxies API calls to the backend.
 
@@ -116,10 +165,19 @@ React fetches /api/auth/me with session cookie → gets user profile
 
 ## Environment Variables
 
+### Backend
+
 | Variable | Description |
 |----------|-------------|
 | `GOOGLE_CLIENT_ID` | OAuth2 client ID from Google Cloud Console |
 | `GOOGLE_CLIENT_SECRET` | OAuth2 client secret from Google Cloud Console |
+| `APP_FRONTEND_URL` | Frontend URL (e.g. `https://yourdomain.com`) |
+
+### Frontend
+
+| Variable | Description |
+|----------|-------------|
+| `REACT_APP_BACKEND_URL` | Backend base URL (e.g. `https://api.yourdomain.com`) |
 
 ---
 
