@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await fetch('/api/auth/me', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/me`, {
         credentials: 'include',
       });
       if (response.ok) {
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
 
   const logout = async () => {
     try {
-      await fetch('/api/auth/logout', {
+      await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include',
       });

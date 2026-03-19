@@ -36,6 +36,18 @@ public class SecurityConfig {
             .oauth2Login(oauth2 -> oauth2
                 .successHandler(authenticationSuccessHandler())
             )
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint((request, response, authException) -> {
+                    String accept = request.getHeader("Accept");
+                    if (accept != null && accept.contains("application/json")) {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        response.setContentType("application/json");
+                        response.getWriter().write("{\"error\":\"Unauthorized\"}");
+                    } else {
+                        response.sendRedirect("/oauth2/authorization/google");
+                    }
+                })
+            )
             .logout(logout -> logout
                 .logoutUrl("/api/auth/logout")
                 .logoutSuccessHandler((request, response, authentication) -> {
