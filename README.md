@@ -21,7 +21,7 @@ Google-auth-demo/
 │       │   ├── PublicController.java     # GET /api/public/health, /info
 │       │   └── DashboardController.java  # GET /api/dashboard/stats, /messages
 │       └── model/UserInfo.java
-└── frontend/                 # React app (port 3000)
+└── frontend/                 # React app (port 3003)
     └── src/
         ├── context/AuthContext.js        # Auth state, login/logout helpers
         ├── pages/LoginPage.js            # Landing page with Google sign-in button
@@ -79,7 +79,7 @@ npm install
 npm start
 ```
 
-Frontend runs on **http://localhost:3000** and proxies API calls to the backend.
+Frontend runs on **http://localhost:3003** and proxies API calls to the backend.
 
 ---
 
@@ -94,7 +94,7 @@ Google OAuth2 consent screen
         ↓
 Google → POST /login/oauth2/code/google  (Spring Security exchanges code for token)
         ↓
-Spring Boot creates session, redirects to → http://localhost:3000/dashboard
+Spring Boot creates session, redirects to → http://localhost:3003/dashboard
         ↓
 React fetches /api/auth/me with session cookie → gets user profile
 ```
@@ -127,5 +127,5 @@ React fetches /api/auth/me with session cookie → gets user profile
 
 - **Session-based auth**: Spring Security manages sessions via `JSESSIONID` cookie. No JWT needed for this demo.
 - **No user database**: User info comes directly from Google's OAuth2 userinfo endpoint — nothing stored locally.
-- **CORS**: Backend allows requests only from `http://localhost:3000` with credentials.
+- **CORS**: Backend allows requests only from `http://localhost:3003` with credentials.
 - **Protected routes**: React checks `/api/auth/me` on load; unauthenticated users are redirected to `/`.
