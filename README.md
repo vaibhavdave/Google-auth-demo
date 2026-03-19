@@ -1,4 +1,4 @@
-# Google Auth Demo — Spring Boot + React
+# Google OAuth2 Demo — Spring Boot + React
 
 A full-stack demo app showing **Google OAuth2 authentication** using:
 - **Backend**: Spring Boot 3 + Spring Security OAuth2 Client
