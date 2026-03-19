@@ -12,7 +12,7 @@ Users sign in with their Google account — no passwords, no user management API
 
 ```
 Google-auth-demo/
-├── backend/                  # Spring Boot app (port 8080)
+├── backend/                  # Spring Boot app (port 8084)
 │   ├── pom.xml
 │   └── src/main/java/com/example/googleauth/
 │       ├── config/SecurityConfig.java    # CORS + OAuth2 + logout setup
@@ -47,7 +47,7 @@ Google-auth-demo/
 5. Choose **Web application**
 6. Set the **Authorized redirect URI** to:
    ```
-   http://localhost:8080/login/oauth2/code/google
+   http://localhost:8084/login/oauth2/code/google
    ```
 7. Copy the **Client ID** and **Client Secret**
 
@@ -66,7 +66,7 @@ export GOOGLE_CLIENT_SECRET=your-client-secret-here
 ./mvnw spring-boot:run
 ```
 
-Backend runs on **http://localhost:8080**
+Backend runs on **http://localhost:8084**
 
 ---
 
